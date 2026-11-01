@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#02050f}
+
+  /* দরজা ধীরে ধীরে খুলবে */
+  .door{position:fixed;inset:0;background:url(p5.jpg) center/cover no-repeat;
+    animation:open 5s ease-out forwards}
+  @keyframes open{
+    0%{filter:brightness(.1) blur(6px);transform:scale(1.35)}
+    60%{filter:brightness(.8) blur(1px)}
+    100%{filter:brightness(1) blur(0);transform:scale(1)}}
+  .shade{position:fixed;inset:0;background:linear-gradient(transparent 45%,rgba(2,5,15,.85))}
+
+  .text{position:fixed;left:0;right:0;bottom:10vh;text-align:center;padding:0 16px;
+    animation:float 4s 3s ease-out both}
+  @keyframes float{from{opacity:0;transform:translateY(35vh)}to{opacity:1;transform:none}}
+
+  .hb{font-family:"Great Vibes",cursive;font-size:clamp(2.4rem,11vw,4rem);color:#fff;
+    text-shadow:0 0 14px #ffd86b,0 0 30px #ff9ad5;margin-bottom:14px}
+
+  .name{font-family:Orbitron,sans-serif;font-size:clamp(1.3rem,6.5vw,2.3rem);letter-spacing:3px;
+    background:linear-gradient(90deg,#ff4fd8,#ffd86b,#00ffe0,#7b61ff,#ff4fd8);
+    background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 5s linear infinite,tip 1.1s ease-in-out infinite}
+  @keyframes shine{to{background-position:300% 0}}
+  @keyframes tip{0%,100%{opacity:1;filter:drop-shadow(0 0 12px #ffd86b)}
+                 50%{opacity:.45;filter:drop-shadow(0 0 2px #ffd86b)}}
+
+  body.leave{animation:out 1.2s forwards}
+  @keyframes out{to{opacity:0;filter:brightness(3)}}
+</style>
+</head>
+<body>
+  <div class="door"></div>
+  <div class="shade"></div>
+  <div class="text">
+    <div class="hb">Happy birthday to you</div>
+    <div class="name">ΛΠVΞΞR ΛHl'll'lΞD</div>
+  </div>
+
+<script>
+  setTimeout(()=>{document.body.classList.add("leave");
+    setTimeout(()=>location.href="page4.html",1200)},12000);
+</script>
+</body>
+</html>
