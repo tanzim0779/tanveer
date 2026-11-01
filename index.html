@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>মহাজাগতিক</title>
+<style>
+  @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(138,43,226,.45), transparent 55%),
+      radial-gradient(ellipse at 80% 85%, rgba(0,191,255,.30), transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,20,147,.15), transparent 60%),
+      #05010f;
+    overflow-x: hidden;
+  }
+
+  /* তারা */
+  .stars, .stars::after {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+      radial-gradient(1px 1px at 90px 120px, #cfe, transparent),
+      radial-gradient(2px 2px at 160px 60px, #fff, transparent),
+      radial-gradient(1px 1px at 230px 180px, #fde, transparent),
+      radial-gradient(1.5px 1.5px at 300px 90px, #fff, transparent);
+    background-size: 320px 220px;
+    animation: twinkle 4s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .stars::after { background-size: 210px 170px; animation-delay: 2s; opacity: .7; }
+  @keyframes twinkle { from { opacity: .3; } to { opacity: 1; } }
+
+  .container {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 380px;
+    display: flex; flex-direction: column;
+    gap: 28px;
+  }
+
+  .card {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(180,140,255,.35);
+    box-shadow: 0 0 25px rgba(138,43,226,.45), inset 0 0 20px rgba(255,255,255,.05);
+    background: rgba(20,5,40,.5);
+    backdrop-filter: blur(6px);
+  }
+  .card img { display: block; width: 100%; height: auto; }
+
+  /* উপরের ছবি - ভাসমান ভাব */
+  .top { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+
+  /* Open বাটন - টিপটিপ রঙিন বর্ডার */
+  .open-btn {
+    position: relative;
+    display: flex; justify-content: center; align-items: center; gap: 12px;
+    padding: 18px;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 20px;
+    background: #0b0220;
+    z-index: 0;
+  }
+  .open-btn::before {
+    content: "";
+    position: absolute; inset: -3px;
+    border-radius: 23px;
+    background: conic-gradient(from var(--angle),
+      #ff00cc, #3333ff, #00ffe0, #fff700, #ff3b3b, #ff00cc);
+    z-index: -2;
+    animation: spin 3s linear infinite, blink 1.2s ease-in-out infinite;
+  }
+  .open-btn::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    background: #0b0220;
+    z-index: -1;
+  }
+  @keyframes spin  { to { --angle: 360deg; } }
+  @keyframes blink { 50% { opacity: .35; filter: blur(2px); } }
+
+  .open-btn .arrow { transition: transform .3s; }
+  .open-btn:hover .arrow { transform: translateX(8px); }
+  .open-btn:active { transform: scale(.97); }
+</style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <main class="container">
+    <div class="card top">
+      <img src="p1.jpg" alt="ছবি ১">
+    </div>
+
+    <!-- পরে নতুন পেজের লিংক এখানে বসাবেন: href="next.html" -->
+    <a class="open-btn" href="#">
+      <span>Open</span><span class="arrow">→</span>
+    </a>
+
+    <div class="card">
+      <img src="p2.jpg" alt="ছবি ২">
+    </div>
+  </main>
+</body>
+</html>
