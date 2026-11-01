@@ -14,12 +14,20 @@
     animation:slide 14s linear infinite;z-index:0}
   .slider div{height:100vh;background:url(p3.jpg) center/cover no-repeat}
   @keyframes slide{from{transform:translateY(-100vh)}to{transform:translateY(0)}}
-  .shade{position:fixed;inset:0;z-index:1;
-    background:linear-gradient(rgba(5,1,15,.55),rgba(5,1,15,.1) 40%,rgba(5,1,15,.6))}
 
-  .wrap{position:relative;z-index:2;height:100%;display:flex;
+  /* আপনার ছবি — ৫০% দেখা যাবে (opacity:.5) */
+  .me{position:fixed;inset:0;z-index:1;width:100%;height:100%;
+    object-fit:cover;object-position:center top;
+    opacity:.5;animation:meIn 3s ease both}
+  @keyframes meIn{from{opacity:0}to{opacity:.5}}
+
+  .shade{position:fixed;inset:0;z-index:2;
+    background:linear-gradient(rgba(5,1,15,.3),rgba(5,1,15,0) 40%,rgba(5,1,15,.5))}
+
+  /* লেখা এখন নিচের দিকে (উপরের ফাঁকা জায়গা 26vh) */
+  .wrap{position:relative;z-index:3;height:100%;display:flex;
     flex-direction:column;justify-content:space-between;align-items:center;
-    padding:6vh 20px 4vh}
+    padding:26vh 20px 4vh}
 
   .quote{text-align:center;font-weight:700;font-size:clamp(1.3rem,5.6vw,2rem);line-height:1.7;
     background:linear-gradient(90deg,#ff6ad5,#c774e8,#7ab8ff,#00ffe0,#ffd86b,#ff6ad5);
@@ -39,6 +47,7 @@
 </head>
 <body>
   <div class="slider"><div></div><div></div></div>
+  <img class="me" src="p8.jpg" alt="">
   <div class="shade"></div>
 
   <div class="wrap">
