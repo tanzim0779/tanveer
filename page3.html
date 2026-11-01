@@ -35,17 +35,73 @@
   @keyframes burst{
     0%{opacity:0;transform:translateY(36vh) scale(.05);filter:blur(14px) brightness(4)}
     25%{opacity:1}
-    60%{transform:translateY(0) scale(1.18);filter:blur(0) brightness(1.6)}
+    60% {
+  transform: translateY(0) scale(1.04);
+  filter: blur(0) brightness(1.2);
+}
     100%{opacity:1;transform:none;filter:none}}
 
   .line{font-family:Orbitron,sans-serif;font-weight:900;text-transform:uppercase}
-  .l1{font-size:clamp(1.1rem,5.6vw,1.9rem);letter-spacing:3px;margin-bottom:18px}
-  .l2{font-size:clamp(1.5rem,8vw,2.8rem);letter-spacing:3px;line-height:1.3}
+  .l1 {
+  font-size: clamp(1rem, 4.5vw, 1.5rem);
+  letter-spacing: 4px;
+  margin-bottom: 22px;
+  font-weight: 700;
+}
+
+.l2 {
+  font-size: clamp(1.2rem, 6.5vw, 2.8rem);
+  letter-spacing: 1px;
+  line-height: 1.4;
+  font-weight: 700;
+}
   .w{display:inline-block;white-space:nowrap;margin:0 .3em}
 
   /* প্রতিটি অক্ষরে আলাদা আলাদা রঙিন আলো */
-  .l{display:inline-block;animation:lights 4s linear infinite}
-  .l2 .l{animation:lights 4s linear infinite,tip 1.2s ease-in-out infinite alternate}
+
+
+ 
+/* সাধারণ শুভেচ্ছা: স্থির, মার্জিত সোনালি */
+.l1 .l {
+  display: inline-block;
+  color: #e7c77d;
+  text-shadow: 0 0 8px #d8b46a44;
+}
+
+/* নাম: নীল-বেগুনি মহাজাগতিক আলো */
+.l2 .l {
+  display: inline-block;
+  color: #8acbff;
+  text-shadow: 0 0 8px #398bff88;
+  animation: cosmicGlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes cosmicGlow {
+  0% {
+    color: #83caff;
+    text-shadow: 0 0 6px #398bff66;
+  }
+
+  50% {
+    color: #b8a5ff;
+    text-shadow:
+      0 0 8px #8066ff88,
+      0 0 18px #604cff44;
+  }
+
+  100% {
+    color: #8deaff;
+    text-shadow:
+      0 0 10px #42cfff99,
+      0 0 22px #398bff55;
+  }
+}
+
+
+
+
+
+ 
   @keyframes lights{
     0%  {color:#ff4fd8;text-shadow:0 0 10px #ff4fd8,0 0 28px #ff4fd8}
     20% {color:#ffd86b;text-shadow:0 0 10px #ffd86b,0 0 28px #ffb300}
