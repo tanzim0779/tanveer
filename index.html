@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <meta name="description" content="A birthday surprise made with love for Bhaiya — 14 November.">
+  <title>A Special Surprise | 14 November</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div id="sparkles" class="sparkles" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="wordmark" href="#" aria-label="Birthday surprise home" id="homeLink"><span class="wordmark-dot"></span> A LITTLE SURPRISE</a>
+    <div class="topbar-right">
+      <span id="stepCounter" class="step-counter">01 / 06</span>
+      <button id="soundToggle" class="sound-toggle" type="button" aria-pressed="false" title="Toggle ambient sound">♫ <span>Sound off</span></button>
+    </div>
+  </header>
+
+  <main id="experience" aria-live="polite">
+    <!-- Page 1: The Mysterious Entrance -->
+    <section class="page active" data-page="0" aria-label="The Mysterious Entrance">
+      <div class="page-content entrance-content">
+        <p class="eyebrow reveal">A PRIVATE BIRTHDAY EXPERIENCE</p>
+        <div class="orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+        <p class="micro-label reveal delay-1">SOMEONE VERY SPECIAL IS ABOUT TO BE CELEBRATED</p>
+        <h1 class="hero-title reveal delay-2">A little mystery.<br><em>A lot of love.</em></h1>
+        <p class="subcopy reveal delay-3">A little something, made just for you.</p>
+        <button class="primary-button reveal delay-4" data-next type="button">ENTER THE SURPRISE <span>↗</span></button>
+        <p class="bottom-note reveal delay-4">PLEASE OPEN WITH A SMILE</p>
+      </div>
+    </section>
+
+    <!-- Page 2: Grand reveal -->
+    <section class="page" data-page="1" aria-label="The Grand Reveal" hidden>
+      <div class="page-content reveal-page">
+        <p class="eyebrow">TODAY, WE CELEBRATE SOMEONE EXTRAORDINARY</p>
+        <div class="fine-line"></div>
+        <p class="name-small">THE ONE & ONLY</p>
+        <h2 class="brother-name"><span>"l"ΛΠVΞΞR</span><span>ΛHl'll'lΞD</span></h2>
+        <div class="fine-line short"></div>
+        <h3 class="birthday-heading">Happy Birthday, <em>Bhai!</em></h3>
+        <p class="date-line">14 <span>·</span> NOVEMBER</p>
+        <p class="subcopy">Your day. Your story. Your own little universe.</p>
+        <button class="primary-button" data-next type="button">THERE'S MORE <span>↗</span></button>
+      </div>
+    </section>
+
+    <!-- Page 3: Gift -->
+    <section class="page" data-page="2" aria-label="Unlock Your Surprise" hidden>
+      <div class="page-content gift-content">
+        <p class="eyebrow">A LITTLE SOMETHING, JUST FOR YOU</p>
+        <h2 class="section-title">A gift with <em>meaning.</em></h2>
+        <p class="subcopy">Some surprises are better when you open them yourself.</p>
+        <button id="giftButton" class="gift-button" type="button" aria-label="Open your gift">
+          <span class="gift-glow"></span><span class="gift-bow">✧</span><span class="gift-box">🎁</span>
+          <span class="gift-caption">TAP TO UNWRAP</span>
+        </button>
+        <div id="giftMessage" class="gift-message" hidden>
+          <p class="eyebrow">SURPRISE UNLOCKED</p>
+          <h3>For the brother who deserves the world. ✨</h3>
+          <p>May life bring you more reasons to smile, more dreams to chase, and more beautiful moments than you can count.</p>
+          <button class="primary-button" data-next type="button">READ MY LETTER <span>↗</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 4: Letter -->
+    <section class="page" data-page="3" aria-label="A Message From the Heart" hidden>
+      <div class="page-content letter-content">
+        <p class="eyebrow">A MESSAGE FROM THE HEART</p>
+        <article class="letter">
+          <div class="letter-top">✦ &nbsp; A LETTER FOR BHAIYA &nbsp; ✦</div>
+          <h2>Dear Bhaiya, <em>❤️</em></h2>
+          <p>You are more than just my brother. You are someone I look up to, someone whose presence makes life better, and someone I will always wish the best for.</p>
+          <p>On your special day, I wish you happiness, success, peace, good health, and the courage to achieve every dream you carry in your heart.</p>
+          <p>No matter how busy life gets, I hope you always remember how much you mean to me.</p>
+          <p class="signature">With love,<br><span>Your little brother</span></p>
+          <p class="edit-note">P.S. You can personalize this letter in <code>script.js</code>.</p>
+        </article>
+        <button class="primary-button" data-next type="button">OUR MEMORIES <span>↗</span></button>
+      </div>
+    </section>
+
+    <!-- Page 5: Memories -->
+    <section class="page" data-page="4" aria-label="Memories and Moments" hidden>
+      <div class="page-content memories-content">
+        <p class="eyebrow">LITTLE MOMENTS. BIG MEMORIES.</p>
+        <h2 class="section-title">Our story, <em>still unfolding.</em></h2>
+        <p class="subcopy">A few words for all the memories we have — and all the ones still waiting for us.</p>
+        <div class="memory-grid">
+          <article class="memory-card memory-card-one"><span class="memory-icon">✦</span><p>THE GOOD TIMES</p><h3>More laughter,<br>always.</h3></article>
+          <article class="memory-card memory-card-two"><span class="memory-icon">∞</span><p>THE BOND</p><h3>A brother today.<br>A friend forever.</h3></article>
+          <article class="memory-card memory-card-three"><span class="memory-icon">☾</span><p>WHAT'S AHEAD</p><h3>More memories<br>to make.</h3></article>
+        </div>
+        <p class="memory-footnote">Add your real photos and favorite memories here whenever you're ready.</p>
+        <button class="primary-button" data-next type="button">ONE LAST THING <span>↗</span></button>
+      </div>
+    </section>
+
+    <!-- Page 6: Final celebration -->
+    <section class="page" data-page="5" aria-label="The Final Celebration" hidden>
+      <div class="page-content finale-content">
+        <div class="firework firework-one" aria-hidden="true"></div>
+        <div class="firework firework-two" aria-hidden="true"></div>
+        <div class="cake" aria-hidden="true">🎂</div>
+        <p class="eyebrow">A NEW CHAPTER BEGINS</p>
+        <h2 class="finale-title">HAPPY<br><em>BIRTHDAY!</em></h2>
+        <p class="finale-name">"l"ΛΠVΞΞR ΛHl'll'lΞD</p>
+        <p class="date-line">14 <span>·</span> NOVEMBER</p>
+        <p class="finale-message">May your next chapter be your best one yet.</p>
+        <p class="made-with-love">MADE WITH LOVE, ESPECIALLY FOR YOU <span>♥</span></p>
+        <button id="restartButton" class="secondary-button" type="button">↺ EXPERIENCE IT AGAIN</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="page-nav" aria-label="Experience navigation">
+    <button id="prevButton" class="nav-button" type="button" disabled>← <span>BACK</span></button>
+    <div class="progress-dots" id="progressDots" aria-label="Page progress">
+      <button class="progress-dot active" data-go="0" aria-label="Go to entrance"></button>
+      <button class="progress-dot" data-go="1" aria-label="Go to grand reveal"></button>
+      <button class="progress-dot" data-go="2" aria-label="Go to gift"></button>
+      <button class="progress-dot" data-go="3" aria-label="Go to letter"></button>
+      <button class="progress-dot" data-go="4" aria-label="Go to memories"></button>
+      <button class="progress-dot" data-go="5" aria-label="Go to celebration"></button>
+    </div>
+    <button id="nextButton" class="nav-button" type="button">NEXT <span>→</span></button>
+  </nav>
+
+  <div id="transitionCurtain" class="transition-curtain" aria-hidden="true">
+    <div class="curtain-inner"><span class="curtain-star">✦</span><p>THE MYSTERIOUS ENTRANCE</p><span class="curtain-line"></span></div>
+  </div>
+  <noscript><p class="noscript">Please enable JavaScript to experience the page transitions.</p></noscript>
+  <script src="script.js"></script>
+</body>
+  </html>
+  
