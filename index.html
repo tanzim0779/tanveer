@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>মহাজাগতিক</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
   @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 
@@ -11,23 +12,21 @@
 
   body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; justify-content: center; align-items: center;
     padding: 20px;
     color: #fff;
+    font-family: "Hind Siliguri", sans-serif;
     background:
       radial-gradient(ellipse at 20% 15%, rgba(138,43,226,.45), transparent 55%),
       radial-gradient(ellipse at 80% 85%, rgba(0,191,255,.30), transparent 55%),
-      radial-gradient(ellipse at 50% 50%, rgba(255,20,147,.15), transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(255,20,147,.18), transparent 60%),
       #05010f;
     overflow-x: hidden;
   }
 
-  /* তারা */
+  /* ---------- তারা ---------- */
   .stars, .stars::after {
-    content: "";
-    position: fixed; inset: 0;
+    content: ""; position: fixed; inset: 0;
     background-image:
       radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
       radial-gradient(1px 1px at 90px 120px, #cfe, transparent),
@@ -36,65 +35,108 @@
       radial-gradient(1.5px 1.5px at 300px 90px, #fff, transparent);
     background-size: 320px 220px;
     animation: twinkle 4s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
   .stars::after { background-size: 210px 170px; animation-delay: 2s; opacity: .7; }
   @keyframes twinkle { from { opacity: .3; } to { opacity: 1; } }
 
+  /* ---------- ব্যাকগ্রাউন্ড আর্ট ---------- */
+  .art { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+
+  /* মাঝখানে বড় ঝাপসা লেখা */
+  .watermark {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; white-space: nowrap;
+    font-weight: 700; font-size: clamp(3rem, 16vw, 8rem);
+    line-height: 1.1;
+    background: linear-gradient(90deg, #ff4fd8, #7b61ff, #00e5ff);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; opacity: .09;
+    animation: breathe 7s ease-in-out infinite;
+  }
+  .watermark small { display: block; font-size: .5em; letter-spacing: 6px; }
+  @keyframes breathe { 50% { opacity: .17; transform: translate(-50%, -50%) scale(1.04); } }
+
+  /* চাঁদ */
+  .moon { position: absolute; top: 4%; right: 6%; width: 90px;
+    filter: drop-shadow(0 0 18px rgba(255,230,150,.7));
+    animation: float 8s ease-in-out infinite; }
+  /* গ্রহ */
+  .planet { position: absolute; bottom: 5%; left: 4%; width: 120px; opacity: .9;
+    animation: float 10s ease-in-out infinite reverse; }
+  /* নক্ষত্রমণ্ডল */
+  .constellation { position: absolute; top: 10%; left: 5%; width: 150px; opacity: .6; }
+  .constellation line { stroke: rgba(200,170,255,.5); stroke-width: 1; stroke-dasharray: 4 4; }
+  .constellation circle { fill: #fff; animation: twinkle 2s ease-in-out infinite alternate; }
+
+  @keyframes float { 50% { transform: translateY(-14px); } }
+
+  /* উল্কা */
+  .shooting {
+    position: absolute; width: 130px; height: 2px;
+    background: linear-gradient(90deg, #fff, transparent);
+    transform: rotate(-35deg); opacity: 0;
+    animation: shoot 6s linear infinite;
+  }
+  .shooting:nth-child(2) { animation-delay: 3s; }
+  @keyframes shoot {
+    0%   { opacity: 0; transform: translate(0,0) rotate(-35deg); }
+    5%   { opacity: 1; }
+    20%  { opacity: 0; transform: translate(-380px, 270px) rotate(-35deg); }
+    100% { opacity: 0; }
+  }
+
+  /* ভেসে ওঠা লেখা ও প্রতীক (JS দিয়ে তৈরি হবে) */
+  .floater {
+    position: absolute; bottom: -60px;
+    white-space: nowrap; opacity: 0;
+    text-shadow: 0 0 12px currentColor;
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) rotate(-6deg); opacity: 0; }
+    10%  { opacity: .85; }
+    90%  { opacity: .6; }
+    100% { transform: translateY(-115vh) rotate(8deg); opacity: 0; }
+  }
+
+  /* ---------- মূল লেআউট ---------- */
   .container {
     position: relative; z-index: 1;
     width: 100%; max-width: 380px;
-    display: flex; flex-direction: column;
-    gap: 28px;
+    display: flex; flex-direction: column; gap: 28px;
   }
-
   .card {
-    border-radius: 24px;
-    overflow: hidden;
+    border-radius: 24px; overflow: hidden;
     border: 1px solid rgba(180,140,255,.35);
     box-shadow: 0 0 25px rgba(138,43,226,.45), inset 0 0 20px rgba(255,255,255,.05);
     background: rgba(20,5,40,.5);
     backdrop-filter: blur(6px);
   }
   .card img { display: block; width: 100%; height: auto; }
-
-  /* উপরের ছবি - ভাসমান ভাব */
   .top { animation: float 6s ease-in-out infinite; }
-  @keyframes float { 50% { transform: translateY(-8px); } }
 
-  /* Open বাটন - টিপটিপ রঙিন বর্ডার */
   .open-btn {
     position: relative;
     display: flex; justify-content: center; align-items: center; gap: 12px;
-    padding: 18px;
-    font-size: 1.6rem;
-    letter-spacing: 2px;
-    text-decoration: none;
-    color: #fff;
-    border-radius: 20px;
-    background: #0b0220;
-    z-index: 0;
+    padding: 18px; font-size: 1.6rem; letter-spacing: 2px;
+    text-decoration: none; color: #fff;
+    border-radius: 20px; background: #0b0220; z-index: 0;
   }
   .open-btn::before {
-    content: "";
-    position: absolute; inset: -3px;
-    border-radius: 23px;
+    content: ""; position: absolute; inset: -3px; border-radius: 23px;
     background: conic-gradient(from var(--angle),
       #ff00cc, #3333ff, #00ffe0, #fff700, #ff3b3b, #ff00cc);
     z-index: -2;
     animation: spin 3s linear infinite, blink 1.2s ease-in-out infinite;
   }
   .open-btn::after {
-    content: "";
-    position: absolute; inset: 0;
-    border-radius: 20px;
-    background: #0b0220;
-    z-index: -1;
+    content: ""; position: absolute; inset: 0; border-radius: 20px;
+    background: #0b0220; z-index: -1;
   }
   @keyframes spin  { to { --angle: 360deg; } }
   @keyframes blink { 50% { opacity: .35; filter: blur(2px); } }
-
   .open-btn .arrow { transition: transform .3s; }
   .open-btn:hover .arrow { transform: translateX(8px); }
   .open-btn:active { transform: scale(.97); }
@@ -103,12 +145,51 @@
 <body>
   <div class="stars"></div>
 
+  <!-- ব্যাকগ্রাউন্ড আর্ট -->
+  <div class="art" id="art">
+    <div class="watermark">ভালোবাসা<small>♥ আমি ♥</small></div>
+
+    <!-- চাঁদ -->
+    <svg class="moon" viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="mg" cx="40%" cy="40%">
+          <stop offset="0" stop-color="#fff7cc"/><stop offset="1" stop-color="#f0c75e"/>
+        </radialGradient>
+      </defs>
+      <path d="M65 10 A42 42 0 1 0 90 70 A34 34 0 1 1 65 10 Z" fill="url(#mg)"/>
+    </svg>
+
+    <!-- আংটিওয়ালা গ্রহ -->
+    <svg class="planet" viewBox="0 0 120 120">
+      <defs>
+        <radialGradient id="pg" cx="35%" cy="35%">
+          <stop offset="0" stop-color="#ff9ae8"/><stop offset="1" stop-color="#5a2bd8"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="60" cy="60" rx="55" ry="14" fill="none" stroke="#a9f" stroke-width="3" transform="rotate(-20 60 60)" opacity=".7"/>
+      <circle cx="60" cy="60" r="28" fill="url(#pg)"/>
+      <path d="M12 70 Q60 95 108 50" fill="none" stroke="#a9f" stroke-width="3" opacity=".8" transform="rotate(-20 60 60)"/>
+    </svg>
+
+    <!-- নক্ষত্রমণ্ডল (হৃদয়ের মত ছড়ানো) -->
+    <svg class="constellation" viewBox="0 0 150 110">
+      <line x1="20" y1="30" x2="55" y2="12"/><line x1="55" y1="12" x2="80" y2="35"/>
+      <line x1="80" y1="35" x2="108" y2="14"/><line x1="108" y1="14" x2="135" y2="32"/>
+      <line x1="135" y1="32" x2="75" y2="100"/><line x1="75" y1="100" x2="20" y2="30"/>
+      <circle cx="20" cy="30" r="3"/><circle cx="55" cy="12" r="2.5"/><circle cx="80" cy="35" r="3"/>
+      <circle cx="108" cy="14" r="2.5"/><circle cx="135" cy="32" r="3"/><circle cx="75" cy="100" r="3.5"/>
+    </svg>
+
+    <div class="shooting" style="top:8%; right:15%"></div>
+    <div class="shooting" style="top:30%; right:45%"></div>
+  </div>
+
   <main class="container">
     <div class="card top">
       <img src="p1.jpg" alt="ছবি ১">
     </div>
 
-    <!-- পরে নতুন পেজের লিংক এখানে বসাবেন: href="next.html" -->
+    <!-- পরে নতুন পেজের লিংক: href="next.html" -->
     <a class="open-btn" href="#">
       <span>Open</span><span class="arrow">→</span>
     </a>
@@ -117,5 +198,27 @@
       <img src="p2.jpg" alt="ছবি ২">
     </div>
   </main>
+
+<script>
+  // ভেসে ওঠা লেখা ও প্রতীক — এখানে নিজের পছন্দের শব্দ যোগ/বদল করতে পারবেন
+  const items = [
+    "ভালোবাসা", "আমি", "তুমি", "আবেগ", "রহস্য", "অনন্ত",
+    "♥", "♡", "✦", "✧", "☾", "∞", "★", "❤", "☄", "ইতি", "স্বপ্ন", "মহাবিশ্ব"
+  ];
+  const colors = ["#ff6ad5", "#c774e8", "#94d0ff", "#ad8cff", "#8795e8", "#00ffe0", "#ffd1f0"];
+  const art = document.getElementById("art");
+
+  for (let i = 0; i < 26; i++) {
+    const el = document.createElement("span");
+    el.className = "floater";
+    el.textContent = items[Math.floor(Math.random() * items.length)];
+    el.style.left = Math.random() * 95 + "vw";
+    el.style.fontSize = (14 + Math.random() * 26) + "px";
+    el.style.color = colors[Math.floor(Math.random() * colors.length)];
+    el.style.animationDuration = (12 + Math.random() * 16) + "s";
+    el.style.animationDelay = (-Math.random() * 25) + "s";
+    art.appendChild(el);
+  }
+</script>
 </body>
 </html>
