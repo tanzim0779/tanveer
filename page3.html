@@ -1,168 +1,583 @@
+
+
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Happy Birthday</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#02050f">
+<title>Happy Birthday, Tanveer!</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;overflow:hidden;background:#02050f}
-
-  /* দরজা ধীরে ধীরে খুলবে */
-  .door{position:fixed;inset:0;background:url(p5.jpg) center/cover no-repeat;
-    animation:open 5s ease-out forwards}
-  @keyframes open{
-    0%{filter:brightness(.1) blur(6px);transform:scale(1.35)}
-    60%{filter:brightness(.8) blur(1px)}
-    100%{filter:brightness(1) blur(0);transform:scale(1)}}
-  .shade{position:fixed;inset:0;
-    background:linear-gradient(rgba(2,5,15,.7),transparent 45%,rgba(2,5,15,.35))}
-
-  /* দরজার আলোয় হঠাৎ বিস্ফোরণের ঝলক */
-  .flash{position:fixed;left:47%;top:58%;width:60vmax;height:60vmax;margin:-30vmax 0 0 -30vmax;
-    border-radius:50%;pointer-events:none;opacity:0;
-    background:radial-gradient(circle,#fff 0%,#ffe9a8 18%,rgba(255,160,60,.55) 40%,transparent 68%);
-    animation:flash 1.8s 3s ease-out both}
-  @keyframes flash{
-    0%{opacity:0;transform:scale(0)}
-    15%{opacity:1}
-    100%{opacity:0;transform:scale(1.6)}}
-
-  /* দরজা থেকে ছিটকে ওঠা লেখা */
-  .text{position:fixed;left:0;right:0;top:16vh;padding:0 14px;text-align:center;opacity:0;
-    animation:burst 3.4s 3.2s cubic-bezier(.2,.9,.3,1.1) both}
-  @keyframes burst{
-    0%{opacity:0;transform:translateY(36vh) scale(.05);filter:blur(14px) brightness(4)}
-    25%{opacity:1}
-    60% {
-  transform: translateY(0) scale(1.04);
-  filter: blur(0) brightness(1.2);
+:root {
+  --gold: #ffe5a0;
+  --blue: #85d7ff;
+  --purple: #b5a1ff;
+  --night: #02050f;
 }
-    100%{opacity:1;transform:none;filter:none}}
 
-  .line{font-family:Orbitron,sans-serif;font-weight:900;text-transform:uppercase}
-  .l1 {
-  font-size: clamp(1rem, 4.5vw, 1.5rem);
-  letter-spacing: 4px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--night);
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  color: white;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =====================================
+   1. CINEMATIC BACKGROUND
+===================================== */
+
+.door {
+  position: fixed;
+  inset: -2%;
+  z-index: -5;
+  background:
+    linear-gradient(180deg,
+      rgba(2,5,15,.42),
+      rgba(2,5,15,.05) 45%,
+      rgba(2,5,15,.55)),
+    url("p5.jpg") center center / cover no-repeat;
+  transform: scale(1.18);
+  filter: brightness(.15) blur(5px);
+  animation: doorReveal 5s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+@keyframes doorReveal {
+  0% {
+    transform: scale(1.18);
+    filter: brightness(.15) blur(5px);
+  }
+  65% {
+    filter: brightness(.8) blur(1px);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(.9) blur(0);
+  }
+}
+
+.shade {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 48%,
+      transparent 0%,
+      rgba(2,5,15,.12) 45%,
+      rgba(2,5,15,.78) 100%),
+    linear-gradient(180deg,
+      rgba(2,5,15,.25),
+      transparent 35%,
+      rgba(2,5,15,.48));
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 52%,
+      rgba(30,105,255,.13),
+      transparent 58%);
+  animation: ambientPulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes ambientPulse {
+  from { opacity: .35; }
+  to { opacity: 1; }
+}
+
+/* =====================================
+   2. LIGHT BURST
+===================================== */
+
+.flash {
+  position: fixed;
+  z-index: -1;
+  left: 50%;
+  top: 54%;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,226,158,.7) 9%,
+    rgba(255,171,72,.3) 28%,
+    rgba(92,114,255,.12) 45%,
+    transparent 68%);
+  transform: translate(-50%, -50%) scale(.05);
+  animation: lightBurst 2s 2.8s ease-out both;
+}
+
+@keyframes lightBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(.05);
+  }
+  15% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(1.5);
+  }
+}
+
+/* =====================================
+   3. FLOATING GOLDEN LIGHTS
+===================================== */
+
+#particles,
+#confetti {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#particles { z-index: 0; }
+#confetti { z-index: 3; }
+
+.particle {
+  position: absolute;
+  bottom: -15px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px currentColor;
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translate3d(0,0,0) scale(.5);
+    opacity: 0;
+  }
+  12% { opacity: .85; }
+  85% { opacity: .55; }
+  100% {
+    transform: translate3d(var(--drift),-110vh,0) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* =====================================
+   4. MAIN BIRTHDAY MESSAGE
+===================================== */
+
+.text {
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  padding: 0 16px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(45px) scale(.92);
+  animation: textEntrance 1.8s 3s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes textEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(45px) scale(.92);
+    filter: blur(12px);
+  }
+  70% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 22px;
-  font-weight: 700;
+  color: rgba(255,232,174,.88);
+  font: 700 clamp(9px, 2.8vw, 12px)/1.5 Montserrat, sans-serif;
+  letter-spacing: clamp(2px, .8vw, 4px);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: eyebrowIn 1s 3.3s ease forwards;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  display: block;
+  width: clamp(18px, 7vw, 45px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.eyebrow::after {
+  transform: rotate(180deg);
+}
+
+@keyframes eyebrowIn {
+  from { opacity: 0; letter-spacing: 8px; }
+  to { opacity: 1; letter-spacing: clamp(2px, .8vw, 4px); }
+}
+
+.line {
+  font-family: Orbitron, Montserrat, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.l1 {
+  margin-bottom: 14px;
+  font-size: clamp(17px, 5.3vw, 32px);
+  line-height: 1.5;
+  letter-spacing: clamp(1px, .7vw, 5px);
 }
 
 .l2 {
-  font-size: clamp(1.2rem, 6.5vw, 2.8rem);
-  letter-spacing: 1px;
-  line-height: 1.4;
-  font-weight: 700;
-}
-  .w{display:inline-block;white-space:nowrap;margin:0 .3em}
-
-  /* প্রতিটি অক্ষরে আলাদা আলাদা রঙিন আলো */
-
-
- 
-/* সাধারণ শুভেচ্ছা: স্থির, মার্জিত সোনালি */
-.l1 .l {
-  display: inline-block;
-  color: #e7c77d;
-  text-shadow: 0 0 8px #d8b46a44;
+  font-size: clamp(26px, 8.5vw, 58px);
+  line-height: 1.35;
+  letter-spacing: clamp(0px, .25vw, 2px);
+  overflow-wrap: normal;
 }
 
-/* নাম: নীল-বেগুনি মহাজাগতিক আলো */
-.l2 .l {
+.word {
   display: inline-block;
-  color: #8acbff;
-  text-shadow: 0 0 8px #398bff88;
-  animation: cosmicGlow 5s ease-in-out infinite alternate;
+  white-space: nowrap;
+  margin: 0 .12em;
+}
+
+.char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px) rotateX(70deg);
+  animation: characterReveal .75s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.l1 .char {
+  color: var(--gold);
+  text-shadow:
+    0 0 7px rgba(255,215,125,.45),
+    0 0 20px rgba(255,175,60,.2);
+}
+
+.l2 .char {
+  color: var(--blue);
+  text-shadow:
+    0 0 8px rgba(75,160,255,.65),
+    0 0 24px rgba(100,80,255,.28);
+  animation:
+    characterReveal .75s cubic-bezier(.2,.8,.2,1) forwards,
+    cosmicGlow 4s 5s ease-in-out infinite alternate;
+}
+
+@keyframes characterReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
 }
 
 @keyframes cosmicGlow {
   0% {
-    color: #83caff;
-    text-shadow: 0 0 6px #398bff66;
+    color: #85d7ff;
+    text-shadow: 0 0 8px #398bff88;
   }
-
   50% {
-    color: #b8a5ff;
+    color: #c6b2ff;
     text-shadow:
-      0 0 8px #8066ff88,
-      0 0 18px #604cff44;
+      0 0 10px #9270ffbb,
+      0 0 26px #604cff66;
   }
-
   100% {
-    color: #8deaff;
+    color: #a3f5ff;
     text-shadow:
-      0 0 10px #42cfff99,
-      0 0 22px #398bff55;
+      0 0 12px #42cfffcc,
+      0 0 28px #398bff66;
   }
 }
 
+/* Decorative glowing line */
 
+.divider {
+  width: min(150px, 38vw);
+  height: 2px;
+  margin: 23px auto 20px;
+  border-radius: 100%;
+  background: linear-gradient(90deg,
+    transparent, #ffe4a0, #86d6ff, transparent);
+  box-shadow: 0 0 15px rgba(133,215,255,.55);
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: lineGrow 1.2s 4.7s ease forwards;
+}
 
+@keyframes lineGrow {
+  to { transform: scaleX(1); }
+}
 
+.subtitle {
+  color: rgba(239,244,255,.88);
+  font: 600 clamp(10px, 3vw, 14px)/1.8 Montserrat, sans-serif;
+  letter-spacing: clamp(1px, .5vw, 2px);
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: subtitleIn 1s 4.9s ease forwards;
+}
 
- 
-  @keyframes lights{
-    0%  {color:#ff4fd8;text-shadow:0 0 10px #ff4fd8,0 0 28px #ff4fd8}
-    20% {color:#ffd86b;text-shadow:0 0 10px #ffd86b,0 0 28px #ffb300}
-    40% {color:#00ffe0;text-shadow:0 0 10px #00ffe0,0 0 28px #00bfff}
-    60% {color:#7b9bff;text-shadow:0 0 10px #7b61ff,0 0 28px #7b61ff}
-    80% {color:#ff6b6b;text-shadow:0 0 10px #ff3b3b,0 0 28px #ff3b3b}
-    100%{color:#ff4fd8;text-shadow:0 0 10px #ff4fd8,0 0 28px #ff4fd8}}
-  @keyframes tip{from{opacity:1}to{opacity:.55}}
+@keyframes subtitleIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .spark{position:fixed;left:47%;top:58%;border-radius:50%;pointer-events:none}
+/* =====================================
+   5. CONFETTI
+===================================== */
 
-  body.leave{animation:out 1.2s forwards}
-  @keyframes out{to{opacity:0;filter:brightness(3)}}
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: var(--w);
+  height: var(--h);
+  background: var(--color);
+  border-radius: 2px;
+  opacity: .95;
+  animation: confettiFall var(--duration) linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translate3d(0,-5vh,0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--sway),110vh,0) rotate(var(--spin));
+    opacity: .12;
+  }
+}
+
+/* =====================================
+   6. TRANSITION TO NEXT PAGE
+===================================== */
+
+body.leave {
+  pointer-events: none;
+  animation: pageExit 1.2s ease-in forwards;
+}
+
+@keyframes pageExit {
+  0% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  45% {
+    filter: brightness(1.8);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(2.5);
+  }
+}
+
+/* Small screens */
+
+@media (max-width: 360px) {
+  .text { padding: 0 10px; }
+  .l1 { letter-spacing: 1px; }
+  .l2 { font-size: clamp(23px, 7.7vw, 30px); }
+  .eyebrow { margin-bottom: 16px; }
+  .divider { margin: 17px auto; }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient { animation: none; }
+  .particle { animation-duration: 18s; }
+}
 </style>
 </head>
+
 <body>
   <div class="door"></div>
   <div class="shade"></div>
+  <div class="ambient"></div>
   <div class="flash"></div>
 
-  <div class="text">
+  <div id="particles" aria-hidden="true"></div>
+  <div id="confetti" aria-hidden="true"></div>
+
+  <main class="text">
+    <div class="eyebrow">A Special Day For You</div>
+
     <div class="line l1" id="l1">HAPPY BIRTHDAY TO</div>
-    <div class="line l2" id="l2">"I"ΛΠVΞΞR ΛHI'II'IΞD</div>
-  </div>
+    <div class="line l2" id="l2">TANVEER AHMED</div>
+
+    <div class="divider"></div>
+    <p class="subtitle">May Your Dreams Touch The Stars ✦</p>
+  </main>
 
 <script>
-  /* প্রতিটি অক্ষরকে আলাদা করে রঙের দেরি দেওয়া হচ্ছে */
-  let n=0;
-  for(const id of["l1","l2"]){
-    const box=document.getElementById(id),words=box.textContent.split(" ");
-    box.textContent="";
-    words.forEach(word=>{
-      const w=document.createElement("span");w.className="w";
-      for(const ch of word){
-        const s=document.createElement("span");s.className="l";s.textContent=ch;
-        s.style.animationDelay=(-n*0.22)+"s,"+(-n*0.17)+"s";n++;
-        w.appendChild(s);
-      }
-      box.appendChild(w);
+/* =====================================
+   1. REVEAL EACH LETTER
+===================================== */
+
+let charIndex = 0;
+
+for (const id of ["l1", "l2"]) {
+  const box = document.getElementById(id);
+  const words = box.textContent.trim().split(/\s+/);
+  box.textContent = "";
+
+  words.forEach((word, wordIndex) => {
+    const wordSpan = document.createElement("span");
+    wordSpan.className = "word";
+
+    for (const ch of word) {
+      const span = document.createElement("span");
+      span.className = "char";
+      span.textContent = ch;
+      span.style.animationDelay = `${3.4 + charIndex * 0.045}s`;
+      wordSpan.appendChild(span);
+      charIndex++;
+    }
+
+    box.appendChild(wordSpan);
+
+    if (wordIndex < words.length - 1) {
+      box.appendChild(document.createTextNode(" "));
+    }
+  });
+}
+
+/* =====================================
+   2. FLOATING AMBIENT PARTICLES
+===================================== */
+
+const particleBox = document.getElementById("particles");
+const particleColors = [
+  "#ffe5a0", "#85d7ff", "#b5a1ff", "#ffffff"
+];
+
+for (let i = 0; i < 42; i++) {
+  const p = document.createElement("span");
+  p.className = "particle";
+
+  const size = 2 + Math.random() * 3.5;
+  p.style.left = `${Math.random() * 100}%`;
+  p.style.width = `${size}px`;
+  p.style.height = `${size}px`;
+  p.style.color = particleColors[
+    Math.floor(Math.random() * particleColors.length)
+  ];
+  p.style.background = p.style.color;
+  p.style.setProperty("--drift", `${Math.random() * 100 - 50}px`);
+  p.style.animationDuration = `${7 + Math.random() * 12}s`;
+  p.style.animationDelay = `${Math.random() * 8}s`;
+
+  particleBox.appendChild(p);
+}
+
+/* =====================================
+   3. GOLDEN CONFETTI BURST
+===================================== */
+
+const confettiBox = document.getElementById("confetti");
+
+function launchConfetti(count = 100) {
+  const colors = [
+    "#ffe5a0", "#ffd166", "#85d7ff",
+    "#b5a1ff", "#ff8fba", "#ffffff"
+  ];
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const duration = 2.2 + Math.random() * 2.5;
+
+    piece.style.left = `${Math.random() * 100}%`;
+    piece.style.setProperty("--color", color);
+    piece.style.setProperty("--w", `${4 + Math.random() * 5}px`);
+    piece.style.setProperty("--h", `${7 + Math.random() * 8}px`);
+    piece.style.setProperty("--duration", `${duration}s`);
+    piece.style.setProperty("--sway", `${Math.random() * 220 - 110}px`);
+    piece.style.setProperty("--spin", `${Math.random() * 1000 - 500}deg`);
+    piece.style.animationDelay = `${Math.random() * .7}s`;
+
+    confettiBox.appendChild(piece);
+
+    piece.addEventListener("animationend", () => piece.remove(), {
+      once: true
     });
   }
+}
 
-  /* দরজা থেকে রঙিন ঝিলিক ছিটকে বেরোবে (৩ সেকেন্ড পর) */
-  const colors=["#ff4fd8","#ffd86b","#00ffe0","#7b61ff","#ff6b6b","#fff"];
-  setTimeout(()=>{
-    for(let i=0;i<80;i++){
-      const s=document.createElement("div");s.className="spark";
-      const z=2+Math.random()*5,c=colors[Math.random()*colors.length|0];
-      s.style.cssText+=`width:${z}px;height:${z}px;background:${c};box-shadow:0 0 12px ${c}`;
-      document.body.appendChild(s);
-      const a=Math.random()*Math.PI*2,d=120+Math.random()*340;
-      s.animate([
-        {transform:"translate(0,0) scale(1)",opacity:1},
-        {transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d-80}px) scale(.2)`,opacity:0}
-      ],{duration:1400+Math.random()*1400,easing:"cubic-bezier(.1,.8,.3,1)"}).onfinish=()=>s.remove();
-    }
-  },3000);
+/* First celebration, followed by a gentle second burst */
+setTimeout(() => launchConfetti(100), 3000);
+setTimeout(() => launchConfetti(45), 6500);
 
-  /* ১৪ সেকেন্ড পর নিজে নিজে পরের পেজ (page4) খুলবে */
-  setTimeout(()=>{document.body.classList.add("leave");
-    setTimeout(()=>location.href="page4.html",1200)},14000);
+/* =====================================
+   4. AUTOMATIC NEXT PAGE
+   Keep the existing page4.html connection
+===================================== */
+
+setTimeout(() => {
+  document.body.classList.add("leave");
+
+  setTimeout(() => {
+    window.location.href = "page4.html";
+  }, 1200);
+
+}, 14000);
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
