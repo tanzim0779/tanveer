@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>তোমার জন্য</title>
+<style>
+  @property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;overflow:hidden;
+    background:radial-gradient(ellipse at 20% 15%,rgba(138,43,226,.5),transparent 55%),
+               radial-gradient(ellipse at 80% 85%,rgba(0,191,255,.35),transparent 55%),
+               radial-gradient(ellipse at 50% 50%,rgba(255,20,147,.2),transparent 60%),#05010f}
+  .stars,.stars::after{content:"";position:fixed;inset:0;pointer-events:none;
+    background-image:radial-gradient(1.5px 1.5px at 20px 30px,#fff,transparent),
+      radial-gradient(1px 1px at 90px 120px,#cfe,transparent),
+      radial-gradient(2px 2px at 160px 60px,#fff,transparent),
+      radial-gradient(1px 1px at 230px 180px,#fde,transparent);
+    background-size:260px 200px;animation:tw 3s ease-in-out infinite alternate}
+  .stars::after{background-size:170px 140px;animation-delay:1.5s}
+  @keyframes tw{from{opacity:.25}to{opacity:1}}
+
+  /* ঘূর্ণায়মান নীহারিকা */
+  .nebula{position:fixed;width:140vmax;height:140vmax;left:50%;top:50%;margin:-70vmax 0 0 -70vmax;
+    background:conic-gradient(from 0deg,transparent,rgba(160,80,255,.18),transparent,rgba(0,220,255,.14),transparent,rgba(255,80,200,.16),transparent);
+    animation:rot 60s linear infinite;pointer-events:none}
+  @keyframes rot{to{transform:rotate(360deg)}}
+
+  .frame{position:relative;width:100%;max-width:440px;border-radius:26px;padding:4px;z-index:1;
+    background:conic-gradient(from var(--a),#ff4fd8,#ffd86b,#00ffe0,#7b61ff,#ff4fd8);
+    animation:spin 5s linear infinite,float 6s ease-in-out infinite;
+    box-shadow:0 0 50px rgba(160,100,255,.6)}
+  @keyframes spin{to{--a:360deg}}
+  @keyframes float{50%{transform:translateY(-10px)}}
+  .frame img{display:block;width:100%;border-radius:23px;background:#12082a;min-height:300px;object-fit:cover}
+
+  /* চারদিকে ভাসমান প্রতীক */
+  .f{position:fixed;bottom:-50px;pointer-events:none;text-shadow:0 0 12px currentColor;
+    animation:up linear infinite;opacity:0}
+  @keyframes up{10%{opacity:.9}100%{transform:translateY(-115vh) rotate(20deg);opacity:0}}
+</style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="nebula"></div>
+
+  <div class="frame">
+    <!-- নিজের ছবির নাম এখানে বসাবেন -->
+    <img src="surprise.jpg" alt="Surprise">
+  </div>
+
+<script>
+  const s=["♥","✦","✧","☾","∞","★","❤","☄"],c=["#ff6ad5","#c774e8","#94d0ff","#ffd86b","#00ffe0"];
+  for(let i=0;i<30;i++){
+    const e=document.createElement("span");e.className="f";
+    e.textContent=s[Math.random()*s.length|0];
+    e.style.left=Math.random()*97+"vw";
+    e.style.fontSize=(14+Math.random()*24)+"px";
+    e.style.color=c[Math.random()*c.length|0];
+    e.style.animationDuration=(10+Math.random()*14)+"s";
+    e.style.animationDelay=(-Math.random()*20)+"s";
+    document.body.appendChild(e);
+  }
+</script>
+</body>
+</html>
