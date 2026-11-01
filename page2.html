@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>পৃথিবী</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#05010f;font-family:"Hind Siliguri",sans-serif}
+
+  /* উপর থেকে নিচে অনবরত স্লাইড হওয়া ব্যাকগ্রাউন্ড */
+  .slider{position:fixed;left:0;top:0;width:100%;height:200vh;
+    animation:slide 14s linear infinite;z-index:0}
+  .slider div{height:100vh;background:url(p3.jpg) center/cover no-repeat}
+  @keyframes slide{from{transform:translateY(-100vh)}to{transform:translateY(0)}}
+  .shade{position:fixed;inset:0;z-index:1;
+    background:linear-gradient(rgba(5,1,15,.55),rgba(5,1,15,.1) 40%,rgba(5,1,15,.6))}
+
+  .wrap{position:relative;z-index:2;height:100%;display:flex;
+    flex-direction:column;justify-content:space-between;align-items:center;
+    padding:6vh 20px 4vh}
+
+  .quote{text-align:center;font-weight:700;font-size:clamp(1.3rem,5.6vw,2rem);line-height:1.7;
+    background:linear-gradient(90deg,#ff6ad5,#c774e8,#7ab8ff,#00ffe0,#ffd86b,#ff6ad5);
+    background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 6s linear infinite, glow 3s ease-in-out infinite alternate,fadeIn 2.5s ease both}
+  @keyframes shine{to{background-position:300% 0}}
+  @keyframes glow{from{filter:drop-shadow(0 0 4px #a56bff)}to{filter:drop-shadow(0 0 14px #ff6ad5)}}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-20px)}}
+
+  .card{width:100%;max-width:420px;border-radius:22px;
+    box-shadow:0 0 30px rgba(255,200,100,.35);animation:rise 2s 1s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(60px)}}
+
+  body.leave{animation:out 1.2s forwards}
+  @keyframes out{to{opacity:0;filter:blur(8px)}}
+</style>
+</head>
+<body>
+  <div class="slider"><div></div><div></div></div>
+  <div class="shade"></div>
+
+  <div class="wrap">
+    <p class="quote">কিছু মানুষ শুধু আমাদের জীবনের অংশ নয়—<br>তারা আমাদের পুরো পৃথিবীটাকে সুন্দর করে তোলে।</p>
+    <img class="card" src="p4.png" alt="">
+  </div>
+
+<script>
+  // ১০ সেকেন্ড পর নিজে নিজে পরের পেজ খুলবে (সময় বদলাতে 10000 পাল্টান)
+  setTimeout(()=>{document.body.classList.add("leave");
+    setTimeout(()=>location.href="page3.html",1200)},10000);
+</script>
+</body>
+</html>
