@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Surprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<style>
+  @property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#02050f}
+  .bg{position:fixed;inset:0;background:url(p6.jpg) center/cover no-repeat;
+    animation:zoom 12s ease-in-out infinite alternate}
+  @keyframes zoom{to{transform:scale(1.08)}}
+
+  .top{position:fixed;top:7vh;left:0;right:0;display:flex;justify-content:center}
+
+  .surprise{position:relative;display:inline-flex;align-items:center;gap:12px;
+    padding:18px 38px;border:0;cursor:pointer;color:#fff;
+    font:700 1.5rem Orbitron,sans-serif;letter-spacing:4px;text-transform:uppercase;
+    border-radius:50px;background:#12082a;z-index:0;overflow:hidden;
+    animation:pulse 2s ease-in-out infinite}
+  .surprise::before{content:"";position:absolute;inset:-3px;border-radius:53px;z-index:-2;
+    background:conic-gradient(from var(--a),#ff4fd8,#ffd86b,#00ffe0,#7b61ff,#ff4fd8);
+    animation:spin 3s linear infinite}
+  .surprise::after{content:"";position:absolute;inset:3px;border-radius:47px;z-index:-1;
+    background:linear-gradient(135deg,#1a0b3d,#05010f)}
+  .surprise span.shine{position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);
+    transform:skewX(-20deg);animation:sweep 2.6s ease-in-out infinite}
+  @keyframes spin{to{--a:360deg}}
+  @keyframes sweep{to{left:130%}}
+  @keyframes pulse{50%{transform:scale(1.06);box-shadow:0 0 38px rgba(255,216,107,.7)}}
+  .surprise:active{transform:scale(.95)}
+  .gift{display:inline-block;animation:wob 1.4s ease-in-out infinite}
+  @keyframes wob{25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="top">
+    <button class="surprise" onclick="location.href='page5.html'">
+      <span class="shine"></span><span class="gift">🎁</span> Surprise
+    </button>
+  </div>
+</body>
+</html>
