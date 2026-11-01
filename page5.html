@@ -109,7 +109,6 @@
   <g id="stairs" filter="url(#glow)"></g>
 
   <!-- হেঁটে চলা মানুষ -->
-  <g id="man"><path d="M0,-37 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0 M-5,-32 h10 l2,15 h-4 l-1,17 h-4 l-1,-17 h-4 z" fill="#05010a"/></g>
 
   <!-- ঝিলিকের রেখা -->
   <path id="trail" d="M125,470 C120,330 225,365 275,190" fill="none" stroke="none"/>
@@ -197,17 +196,7 @@ for(let i=0;i<40;i++){
   c.setAttribute("class","tw");c.style.animationDelay=R(-3,0)+"s";
 }
 
-/* মানুষ — আলোর দিকে হাঁটবে */
-const man=document.getElementById("man");
-const t0=performance.now(),DUR=13000;
-(function walk(now){
-  const p=Math.min((now-t0)/DUR,1),t=.36+.58*p;
-  const a=bez(L,t),b=bez(Rr,t),x=(a[0]+b[0])/2,y=(a[1]+b[1])/2;
-  const s=1.15-0.85*t,bob=Math.sin(now/180)*1.2*s;
-  man.setAttribute("transform",`translate(${x},${y+bob}) scale(${s})`);
-  man.setAttribute("opacity",p>.92?Math.max((1-p)/.08,0):1);
-  if(p<1)requestAnimationFrame(walk);
-})(t0);
+
 
 /* সোনালি ঝিলিক */
 const sp=document.getElementById("sparks");
@@ -220,7 +209,7 @@ for(let i=0;i<80;i++){
 }
 
 /* ১৪ সেকেন্ড পর খাম আসবে (সময় বদলাতে 14000 পাল্টান) */
-setTimeout(()=>document.body.classList.add("stage2"),14000);
+setTimeout(()=>document.body.classList.add("stage2"),5000);
 
 /* খামে ট্যাপ করলে চিঠি খুলবে */
 document.getElementById("env").onclick=()=>document.getElementById("letter").classList.add("open");
