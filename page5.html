@@ -3,64 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>তোমার জন্য</title>
+<title>Surprise</title>
 <style>
   @property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;overflow:hidden;
-    background:radial-gradient(ellipse at 20% 15%,rgba(138,43,226,.5),transparent 55%),
-               radial-gradient(ellipse at 80% 85%,rgba(0,191,255,.35),transparent 55%),
-               radial-gradient(ellipse at 50% 50%,rgba(255,20,147,.2),transparent 60%),#05010f}
-  .stars,.stars::after{content:"";position:fixed;inset:0;pointer-events:none;
-    background-image:radial-gradient(1.5px 1.5px at 20px 30px,#fff,transparent),
-      radial-gradient(1px 1px at 90px 120px,#cfe,transparent),
-      radial-gradient(2px 2px at 160px 60px,#fff,transparent),
-      radial-gradient(1px 1px at 230px 180px,#fde,transparent);
-    background-size:260px 200px;animation:tw 3s ease-in-out infinite alternate}
-  .stars::after{background-size:170px 140px;animation-delay:1.5s}
-  @keyframes tw{from{opacity:.25}to{opacity:1}}
+  html,body{height:100%;overflow:hidden;background:#04010c}
 
-  /* ঘূর্ণায়মান নীহারিকা */
-  .nebula{position:fixed;width:140vmax;height:140vmax;left:50%;top:50%;margin:-70vmax 0 0 -70vmax;
-    background:conic-gradient(from 0deg,transparent,rgba(160,80,255,.18),transparent,rgba(0,220,255,.14),transparent,rgba(255,80,200,.16),transparent);
-    animation:rot 60s linear infinite;pointer-events:none}
+  #scene{position:fixed;inset:0;width:100%;height:100%;
+    animation:fadein 2.5s both;transition:opacity 2s,filter 2s,transform 3s}
+  @keyframes fadein{from{opacity:0}}
+  body.stage2 #scene{opacity:.4;filter:blur(3px) brightness(.8);transform:scale(1.08)}
+
+  .float{animation:fl 5s ease-in-out infinite}
+  .float.b{animation-duration:6.5s;animation-delay:-2s}
+  @keyframes fl{50%{transform:translate(0,-10px)}}
+  .pulse{transform-origin:230px 300px;animation:pl 3s ease-in-out infinite}
+  @keyframes pl{50%{transform:scale(1.15);opacity:.8}}
+  #rays{transform-origin:230px 300px;animation:rot 70s linear infinite}
   @keyframes rot{to{transform:rotate(360deg)}}
+  .tw{animation:tw 2.5s ease-in-out infinite alternate}
+  @keyframes tw{from{opacity:.2}to{opacity:1}}
 
-  .frame{position:relative;width:100%;max-width:440px;border-radius:26px;padding:4px;z-index:1;
+  /* খালি বাক্স — পরে এখানে সব যুক্ত করবেন */
+  .box{position:fixed;left:50%;top:50%;width:88%;max-width:440px;height:64vh;
+    transform:translate(-50%,-50%) scale(.6);opacity:0;pointer-events:none;
+    padding:4px;border-radius:28px;
     background:conic-gradient(from var(--a),#ff4fd8,#ffd86b,#00ffe0,#7b61ff,#ff4fd8);
-    animation:spin 5s linear infinite,float 6s ease-in-out infinite;
-    box-shadow:0 0 50px rgba(160,100,255,.6)}
+    box-shadow:0 0 50px rgba(255,200,100,.35);
+    animation:spin 5s linear infinite;
+    transition:opacity 2s,transform 2s cubic-bezier(.2,.9,.3,1.2)}
   @keyframes spin{to{--a:360deg}}
-  @keyframes float{50%{transform:translateY(-10px)}}
-  .frame img{display:block;width:100%;border-radius:23px;background:#12082a;min-height:300px;object-fit:cover}
-
-  /* চারদিকে ভাসমান প্রতীক */
-  .f{position:fixed;bottom:-50px;pointer-events:none;text-shadow:0 0 12px currentColor;
-    animation:up linear infinite;opacity:0}
-  @keyframes up{10%{opacity:.9}100%{transform:translateY(-115vh) rotate(20deg);opacity:0}}
+  body.stage2 .box{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+  .inner{height:100%;border-radius:25px;padding:20px;overflow:auto;color:#fff;
+    background:rgba(8,3,24,.82);backdrop-filter:blur(6px)}
 </style>
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="nebula"></div>
 
-  <div class="frame">
-    <!-- নিজের ছবির নাম এখানে বসাবেন -->
-    <img src="surprise.jpg" alt="Surprise">
-  </div>
+<svg id="scene" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="sun">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset=".25" stop-color="#ffe9a8" stop-opacity=".9"/>
+      <stop offset=".6" stop-color="#ffa63d" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#ff7a00" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ribbon" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffb84d" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#ffe9a8" stop-opacity=".55"/>
+    </linearGradient>
+    <linearGradient id="paperBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e3efff"/><stop offset="1" stop-color="#8fb0e0"/>
+    </linearGradient>
+    <linearGradient id="paperWarm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff6df"/><stop offset="1" stop-color="#e2c98f"/>
+    </linearGradient>
+    <radialGradient id="seal"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#a8741a"/></radialGradient>
+  </defs>
+
+  <!-- ব্যাকগ্রাউন্ড ও নীহারিকা -->
+  <rect width="400" height="700" fill="#05010f"/>
+  <g filter="url(#blur)">
+    <ellipse cx="60" cy="250" rx="130" ry="80" fill="#3a2a7a" opacity=".7"/>
+    <ellipse cx="350" cy="190" rx="110" ry="70" fill="#8a4a9a" opacity=".55"/>
+    <ellipse cx="330" cy="520" rx="120" ry="80" fill="#1d3a7a" opacity=".6"/>
+    <ellipse cx="60" cy="600" rx="110" ry="70" fill="#4a2a6a" opacity=".5"/>
+  </g>
+  <g id="stars"></g>
+
+  <!-- আলোর উৎস ও রশ্মি -->
+  <g id="rays"></g>
+  <circle class="pulse" cx="230" cy="300" r="150" fill="url(#sun)"/>
+
+  <!-- আলোর সিঁড়ি -->
+  <g id="stairs" filter="url(#glow)"></g>
+
+  <!-- হেঁটে চলা মানুষ -->
+  <g id="man"><path d="M0,-37 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0 M-5,-32 h10 l2,15 h-4 l-1,17 h-4 l-1,-17 h-4 z" fill="#05010a"/></g>
+
+  <!-- ঝিলিকের রেখা -->
+  <path id="trail" d="M125,470 C120,330 225,365 275,190" fill="none" stroke="none"/>
+  <g id="sparks"></g>
+
+  <!-- বাম চিঠি -->
+  <g transform="translate(78,525) rotate(-22)">
+    <g class="float">
+      <circle r="75" fill="#3a7bff" opacity=".35" filter="url(#blur)"/>
+      <g transform="rotate(-6)"><rect x="-32" y="-64" width="82" height="58" rx="3" fill="#f1f5fb"/>
+        <g stroke="#6b7a99" stroke-width="1" opacity=".7">
+          <line x1="-24" y1="-54" x2="42" y2="-54"/><line x1="-24" y1="-46" x2="40" y2="-46"/>
+          <line x1="-24" y1="-38" x2="42" y2="-38"/><line x1="-24" y1="-30" x2="36" y2="-30"/>
+          <line x1="-24" y1="-22" x2="40" y2="-22"/></g></g>
+      <rect x="-56" y="-36" width="112" height="74" rx="4" fill="url(#paperBlue)"/>
+      <polygon points="-56,-36 0,10 56,-36" fill="#eaf3ff" stroke="#9fb8e0" stroke-width="1"/>
+      <circle cy="8" r="12" fill="url(#seal)"/><circle cy="8" r="7" fill="none" stroke="#7a5210" stroke-width="1.2"/>
+    </g>
+  </g>
+
+  <!-- ডান চিঠি -->
+  <g transform="translate(310,165) rotate(20)">
+    <g class="float b">
+      <circle r="70" fill="#ffb347" opacity=".35" filter="url(#blur)"/>
+      <rect x="-48" y="-32" width="96" height="64" rx="4" fill="url(#paperWarm)"/>
+      <polygon points="-48,-32 0,6 48,-32" fill="#fffaf0" stroke="#d8bd80" stroke-width="1"/>
+      <circle cy="4" r="10" fill="url(#seal)"/><circle cy="4" r="6" fill="none" stroke="#7a5210" stroke-width="1.1"/>
+    </g>
+  </g>
+</svg>
+
+<!-- খালি বাক্স -->
+<div class="box"><div class="inner" id="content">
+  <!-- এখানে পরে আপনার সব কিছু যুক্ত করবেন -->
+</div></div>
 
 <script>
-  const s=["♥","✦","✧","☾","∞","★","❤","☄"],c=["#ff6ad5","#c774e8","#94d0ff","#ffd86b","#00ffe0"];
-  for(let i=0;i<30;i++){
-    const e=document.createElement("span");e.className="f";
-    e.textContent=s[Math.random()*s.length|0];
-    e.style.left=Math.random()*97+"vw";
-    e.style.fontSize=(14+Math.random()*24)+"px";
-    e.style.color=c[Math.random()*c.length|0];
-    e.style.animationDuration=(10+Math.random()*14)+"s";
-    e.style.animationDelay=(-Math.random()*20)+"s";
-    document.body.appendChild(e);
-  }
+const NS="http://www.w3.org/2000/svg";
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const R=(a,b)=>a+Math.random()*(b-a);
+
+/* তারা */
+const sg=document.getElementById("stars");
+for(let i=0;i<140;i++){
+  const c=el("circle",{cx:R(0,400),cy:R(0,700),r:R(.4,1.5),fill:"#fff"},sg);
+  c.setAttribute("class","tw");c.style.animationDelay=R(-3,0)+"s";c.style.animationDuration=R(1.5,4)+"s";
+}
+
+/* রশ্মি */
+const rg=document.getElementById("rays");
+for(let i=0;i<26;i++){
+  const a=R(0,Math.PI*2),w=R(.01,.035),r=700;
+  el("polygon",{points:`230,300 ${230+Math.cos(a-w)*r},${300+Math.sin(a-w)*r} ${230+Math.cos(a+w)*r},${300+Math.sin(a+w)*r}`,
+    fill:"#ffd98a",opacity:R(.05,.14)},rg);
+}
+
+/* সিঁড়ি — দুই পাশের বক্র রেখা */
+const bez=(p,t)=>{const u=1-t;return[
+  u*u*u*p[0][0]+3*u*u*t*p[1][0]+3*u*t*t*p[2][0]+t*t*t*p[3][0],
+  u*u*u*p[0][1]+3*u*u*t*p[1][1]+3*u*t*t*p[2][1]+t*t*t*p[3][1]]};
+const L=[[-30,680],[70,560],[170,440],[224,338]];
+const Rr=[[190,730],[285,560],[245,440],[237,338]];
+const st=document.getElementById("stairs");
+let poly=[];
+for(let i=0;i<=40;i++)poly.push(bez(L,i/40));
+for(let i=40;i>=0;i--)poly.push(bez(Rr,i/40));
+el("polygon",{points:poly.map(p=>p.join(",")).join(" "),fill:"url(#ribbon)"},st);
+for(const e of[L,Rr]){
+  let d="M"+bez(e,0).join(",");
+  for(let i=1;i<=40;i++)d+=" L"+bez(e,i/40).join(",");
+  el("path",{d,fill:"none",stroke:"#ffd98a","stroke-width":2.2},st);
+}
+for(let i=0;i<=24;i++){
+  const t=1-Math.pow(1-i/24,1.9),a=bez(L,t),b=bez(Rr,t);
+  el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:"#ffe9a8","stroke-width":.6+2.6*(1-t)},st);
+}
+for(let i=0;i<40;i++){
+  const t=R(.05,1),a=bez(L,t),b=bez(Rr,t),k=Math.random();
+  const c=el("circle",{cx:a[0]+(b[0]-a[0])*k,cy:a[1]+(b[1]-a[1])*k,r:R(.6,1.8),fill:"#fff"},st);
+  c.setAttribute("class","tw");c.style.animationDelay=R(-3,0)+"s";
+}
+
+/* মানুষ — আলোর দিকে হাঁটতে থাকবে */
+const man=document.getElementById("man");
+const t0=performance.now(),DUR=13000;
+(function walk(now){
+  const p=Math.min((now-t0)/DUR,1),t=.36+.58*p;
+  const a=bez(L,t),b=bez(Rr,t),x=(a[0]+b[0])/2,y=(a[1]+b[1])/2;
+  const s=1.15-0.85*t, bob=Math.sin(now/180)*1.2*s;
+  man.setAttribute("transform",`translate(${x},${y+bob}) scale(${s})`);
+  man.setAttribute("opacity",p>.92?Math.max((1-p)/.08,0):1);
+  if(p<1)requestAnimationFrame(walk);
+})(t0);
+
+/* চিঠির মাঝের সোনালি ঝিলিক */
+const sp=document.getElementById("sparks");
+for(let i=0;i<80;i++){
+  const dur=R(3,6),g=el("g",{transform:`translate(${R(-14,14)},${R(-14,14)})`},sp);
+  const c=el("circle",{r:R(.7,2.4),fill:Math.random()<.2?"#8fd0ff":"#ffd98a"},g);
+  const m=el("animateMotion",{dur:dur+"s",begin:-R(0,dur)+"s",repeatCount:"indefinite"},c);
+  el("mpath",{href:"#trail"},m);
+  el("animate",{attributeName:"opacity",values:"0;1;1;0",keyTimes:"0;.2;.7;1",dur:dur+"s",begin:-R(0,dur)+"s",repeatCount:"indefinite"},c);
+}
+
+/* ১৪ সেকেন্ড পর খালি বাক্স আসবে (সময় বদলাতে 14000 পাল্টান) */
+setTimeout(()=>document.body.classList.add("stage2"),14000);
 </script>
 </body>
 </html>
